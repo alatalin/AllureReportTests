@@ -5,6 +5,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -15,6 +16,7 @@ public class StepsTest {
 
     private static final String REPOSYTORY = "alatalin/demoqa-tests-alatalin";
     private static final int ISSUE = 1;
+    private static final String ISSUENAME = "New issue";
 
     @Test
     public void testLambdaStep(){
@@ -40,6 +42,10 @@ public class StepsTest {
         step("Проверяем наличие Issue с номером " + ISSUE, () -> {
             $(withText("#" + ISSUE)).should(Condition.exist);
         });
+
+        step("Проверяем наличие Issue c именем " + ISSUENAME, () -> {
+            $(".Title-module__container--l9xi7").shouldHave(text(ISSUENAME));
+        });
     }
 
     @Test
@@ -52,5 +58,6 @@ public class StepsTest {
         steps.clickOnRepositoryLink(REPOSYTORY);
         steps.openIssuesTab();
         steps.shouldSeeIssueWithNumber(1);
+        steps.shouldSeeIssueWithName(ISSUENAME);
     }
 }
