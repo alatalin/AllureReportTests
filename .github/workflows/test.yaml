@@ -1,9 +1,11 @@
 name: Test
-on: [push]
+on: workflow_dispatch
 
 jobs:
   test:
+    # где запускаем
     runs-on: ubuntu-latest
+    # что делаем
     steps:
       - uses: actions/checkout@v4
       # настраиваем java
